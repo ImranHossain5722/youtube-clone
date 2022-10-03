@@ -4,6 +4,7 @@ import Card from "../Components/Card";
 import Navbar from "../Components/Navbar";
 import Sidebar from "../Components/Sidebar";
 import Spinner from "../Components/Spinner";
+import { clearVideos } from "../store";
 import { useAppDispatch, useAppSelector } from "../store/hooks";
 import { getHomePageVideos } from "../store/reducers/getHomePageVideos";
 import { HomePageVideos } from "../Types";
@@ -12,6 +13,13 @@ const Home = () => {
     const dispatch = useAppDispatch();
     const videos = useAppSelector((state)=>state?.youtubeApp?.videos )
     
+    useEffect(()=>{
+      return()=> {
+        dispatch(clearVideos())
+      };
+    },[dispatch])
+
+    // data load 
    useEffect(()=>{
         dispatch(getHomePageVideos(false))
        console.log(videos)
